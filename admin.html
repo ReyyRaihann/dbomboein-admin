@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Dbomboein</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+if(localStorage.getItem("adminLogin") !== "true"){
+    window.location.href = "loginadmin.html";
+}
+</script>
+
+<header>
+    <h3>Dashboard Admin</h3>
+    <button onclick="logoutAdmin()" class="logout-btn">Logout</button>
+</header>
+
+<!-- LOADING INFO -->
+<div id="loadingInfo" style="display:none;text-align:center;padding:10px;
+    background:#fff3e0;color:#e65100;font-weight:bold;"></div>
+
+<!-- UBAH AKUN -->
+<h2 style="margin:20px;">Ubah Akun Admin</h2>
+<div class="stok-card" style="margin:20px;">
+    <input type="text" id="userBaru" placeholder="Username Baru">
+    <input type="password" id="passBaru" placeholder="Password Baru">
+    <button onclick="ubahAkunAdmin()">💾 Simpan Akun</button>
+</div>
+
+<!-- STATISTIK -->
+<div class="admin-stat">
+    <div class="stat-card">
+        <h3 id="jumlahPesanan">-</h3>
+        <p>Total Pesanan</p>
+    </div>
+    <div class="stat-card">
+        <h3 id="totalPendapatan">-</h3>
+        <p>Total Pendapatan</p>
+    </div>
+    <div class="stat-card">
+        <h3 id="produkTerlaris">-</h3>
+        <p>Produk Terlaris</p>
+    </div>
+</div>
+
+<!-- GRAFIK -->
+<h2 style="margin:20px;">Grafik Pendapatan</h2>
+<div style="background:white;padding:20px;margin:20px;border-radius:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);">
+    <canvas id="grafikPendapatan"></canvas>
+</div>
+
+<!-- KELOLA STOK -->
+<h2 style="margin:20px;">Kelola Stok Produk</h2>
+<div style="margin:20px;display:flex;gap:10px;flex-wrap:wrap;">
+    <input type="text" id="cariAdmin" placeholder="Cari produk..."
+        onkeyup="cariProdukAdmin()"
+        style="flex:1;min-width:200px;padding:10px;border-radius:8px;border:1px solid #ccc;">
+    <button onclick="resetProdukAwal()"
+        style="background:#e65100;width:auto;padding:10px 20px;white-space:nowrap;">
+        🔄 Reset ke Default
+    </button>
+</div>
+
+<div id="adminStok"></div>
+
+<!-- TAMBAH PRODUK BARU -->
+<h2 style="margin:20px;">Tambah Produk Baru</h2>
+<div style="background:white;padding:25px;border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.1);margin:20px;">
+
+    <label style="font-size:13px;color:#888;font-weight:bold;">NAMA PRODUK</label>
+    <input type="text" id="namaProdukBaru" placeholder="Nama produk"
+        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+
+    <label style="font-size:13px;color:#888;font-weight:bold;">TIPE PRODUK</label>
+    <select id="tipeProduk" onchange="toggleTipeProduk()"
+        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;">
+        <option value="berat">Per Berat (gram/kg)</option>
+        <option value="satuan">Per Satuan (dirigen/botol/dll)</option>
+        <option value="pak">Per Pak / Bundle</option>
+    </select>
+
+    <!-- BERAT -->
+    <div id="secBerat">
+        <p style="font-size:13px;color:#888;font-weight:bold;margin-bottom:8px;">
+            HARGA PER UKURAN (kosongkan jika tidak dijual)
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+                <label style="font-size:12px;color:#aaa;">1 ons (100g)</label>
+                <input type="number" id="hargaOns" placeholder="Rp"
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+            </div>
+            <div>
+                <label style="font-size:12px;color:#aaa;">1/4 kg (250g)</label>
+                <input type="number" id="hargaPerempat" placeholder="Rp"
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+            </div>
+            <div>
+                <label style="font-size:12px;color:#aaa;">1/2 kg (500g)</label>
+                <input type="number" id="hargaSetengah" placeholder="Rp"
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+            </div>
+            <div>
+                <label style="font-size:12px;color:#aaa;">1 kg (1000g)</label>
+                <input type="number" id="hargaKg" placeholder="Rp"
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+            </div>
+        </div>
+    </div>
+
+    <!-- SATUAN -->
+    <div id="secSatuan" style="display:none;">
+        <label style="font-size:13px;color:#888;font-weight:bold;">JENIS SATUAN</label>
+        <input type="text" id="namaJenisSatuan" placeholder="dirigen / botol / kaleng / bungkus"
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+        <label style="font-size:13px;color:#888;font-weight:bold;">HARGA PER SATUAN</label>
+        <input type="number" id="hargaSatuan" placeholder="Rp"
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+    </div>
+
+    <!-- PAK -->
+    <div id="secPak" style="display:none;">
+        <label style="font-size:13px;color:#888;font-weight:bold;">KETERANGAN PAK</label>
+        <input type="text" id="keteranganPak" placeholder="contoh: isi 12 / isi 20"
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+        <label style="font-size:13px;color:#888;font-weight:bold;">HARGA PER PAK</label>
+        <input type="number" id="hargaPak" placeholder="Rp"
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+    </div>
+
+    <label style="font-size:13px;color:#888;font-weight:bold;">STOK AWAL</label>
+    <input type="number" id="stokProdukBaru" placeholder="Jumlah stok awal"
+        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+
+    <label style="font-size:13px;color:#888;font-weight:bold;">URL GAMBAR</label>
+    <input type="text" id="urlGambarBaru" placeholder="https://... (opsional, bisa dari Google Images)"
+        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+
+    <button onclick="tambahProdukBaru()" style="width:100%;padding:14px;font-size:15px;">
+        ➕ Tambah Produk
+    </button>
+</div>
+
+<!-- DAFTAR PESANAN -->
+<h2 style="margin:20px;">Daftar Pesanan</h2>
+<div id="adminPesanan" style="padding:0 20px 40px;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
