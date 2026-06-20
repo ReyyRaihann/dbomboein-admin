@@ -6,13 +6,7 @@
     <title>Admin - Dbomboein</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-<script>
-if(localStorage.getItem("adminLogin") !== "true"){
-    window.location.href = "loginadmin.html";
-}
-</script>
+<body style="display:none;">
 
 <header>
     <h3>Dashboard Admin</h3>
@@ -23,11 +17,13 @@ if(localStorage.getItem("adminLogin") !== "true"){
     background:#fff3e0;color:#e65100;font-weight:bold;font-size:14px;"></div>
 
 <!-- UBAH AKUN -->
-<h2 style="margin:20px;">Ubah Akun Admin</h2>
+<h2 style="margin:20px;">Ubah Password Admin</h2>
 <div class="stok-card" style="margin:20px;">
-    <input type="text" id="userBaru" placeholder="Username Baru">
-    <input type="password" id="passBaru" placeholder="Password Baru">
-    <button onclick="ubahAkunAdmin()">💾 Simpan Akun</button>
+    <input type="password" id="passBaru" placeholder="Password Baru (min. 6 karakter)">
+    <button onclick="ubahAkunAdmin()">💾 Simpan Password</button>
+    <p style="font-size:12px;color:#888;margin-top:6px;">
+        Untuk mengganti email admin, lakukan lewat Supabase Dashboard → Authentication → Users.
+    </p>
 </div>
 
 <!-- STATISTIK -->
