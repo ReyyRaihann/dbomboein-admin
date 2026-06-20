@@ -19,9 +19,8 @@ if(localStorage.getItem("adminLogin") !== "true"){
     <button onclick="logoutAdmin()" class="logout-btn">Logout</button>
 </header>
 
-<!-- LOADING INFO -->
-<div id="loadingInfo" style="display:none;text-align:center;padding:10px;
-    background:#fff3e0;color:#e65100;font-weight:bold;"></div>
+<div id="loadingInfo" style="display:none;text-align:center;padding:12px;
+    background:#fff3e0;color:#e65100;font-weight:bold;font-size:14px;"></div>
 
 <!-- UBAH AKUN -->
 <h2 style="margin:20px;">Ubah Akun Admin</h2>
@@ -33,18 +32,9 @@ if(localStorage.getItem("adminLogin") !== "true"){
 
 <!-- STATISTIK -->
 <div class="admin-stat">
-    <div class="stat-card">
-        <h3 id="jumlahPesanan">-</h3>
-        <p>Total Pesanan</p>
-    </div>
-    <div class="stat-card">
-        <h3 id="totalPendapatan">-</h3>
-        <p>Total Pendapatan</p>
-    </div>
-    <div class="stat-card">
-        <h3 id="produkTerlaris">-</h3>
-        <p>Produk Terlaris</p>
-    </div>
+    <div class="stat-card"><h3 id="jumlahPesanan">-</h3><p>Total Pesanan</p></div>
+    <div class="stat-card"><h3 id="totalPendapatan">-</h3><p>Total Pendapatan</p></div>
+    <div class="stat-card"><h3 id="produkTerlaris">-</h3><p>Produk Terlaris</p></div>
 </div>
 
 <!-- GRAFIK -->
@@ -65,7 +55,6 @@ if(localStorage.getItem("adminLogin") !== "true"){
         🔄 Reset ke Default
     </button>
 </div>
-
 <div id="adminStok"></div>
 
 <!-- TAMBAH PRODUK BARU -->
@@ -75,7 +64,8 @@ if(localStorage.getItem("adminLogin") !== "true"){
 
     <label style="font-size:13px;color:#888;font-weight:bold;">NAMA PRODUK</label>
     <input type="text" id="namaProdukBaru" placeholder="Nama produk"
-        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+        margin:6px 0 14px;box-sizing:border-box;">
 
     <label style="font-size:13px;color:#888;font-weight:bold;">TIPE PRODUK</label>
     <select id="tipeProduk" onchange="toggleTipeProduk()"
@@ -94,22 +84,26 @@ if(localStorage.getItem("adminLogin") !== "true"){
             <div>
                 <label style="font-size:12px;color:#aaa;">1 ons (100g)</label>
                 <input type="number" id="hargaOns" placeholder="Rp"
-                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+                    margin-top:4px;box-sizing:border-box;">
             </div>
             <div>
                 <label style="font-size:12px;color:#aaa;">1/4 kg (250g)</label>
                 <input type="number" id="hargaPerempat" placeholder="Rp"
-                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+                    margin-top:4px;box-sizing:border-box;">
             </div>
             <div>
                 <label style="font-size:12px;color:#aaa;">1/2 kg (500g)</label>
                 <input type="number" id="hargaSetengah" placeholder="Rp"
-                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+                    margin-top:4px;box-sizing:border-box;">
             </div>
             <div>
                 <label style="font-size:12px;color:#aaa;">1 kg (1000g)</label>
                 <input type="number" id="hargaKg" placeholder="Rp"
-                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-top:4px;box-sizing:border-box;">
+                    style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+                    margin-top:4px;box-sizing:border-box;">
             </div>
         </div>
     </div>
@@ -118,29 +112,37 @@ if(localStorage.getItem("adminLogin") !== "true"){
     <div id="secSatuan" style="display:none;">
         <label style="font-size:13px;color:#888;font-weight:bold;">JENIS SATUAN</label>
         <input type="text" id="namaJenisSatuan" placeholder="dirigen / botol / kaleng / bungkus"
-            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+            margin:6px 0 14px;box-sizing:border-box;">
         <label style="font-size:13px;color:#888;font-weight:bold;">HARGA PER SATUAN</label>
         <input type="number" id="hargaSatuan" placeholder="Rp"
-            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+            margin:6px 0 14px;box-sizing:border-box;">
     </div>
 
     <!-- PAK -->
     <div id="secPak" style="display:none;">
         <label style="font-size:13px;color:#888;font-weight:bold;">KETERANGAN PAK</label>
         <input type="text" id="keteranganPak" placeholder="contoh: isi 12 / isi 20"
-            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+            margin:6px 0 14px;box-sizing:border-box;">
         <label style="font-size:13px;color:#888;font-weight:bold;">HARGA PER PAK</label>
         <input type="number" id="hargaPak" placeholder="Rp"
-            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+            style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+            margin:6px 0 14px;box-sizing:border-box;">
     </div>
 
     <label style="font-size:13px;color:#888;font-weight:bold;">STOK AWAL</label>
     <input type="number" id="stokProdukBaru" placeholder="Jumlah stok awal"
-        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+        margin:6px 0 14px;box-sizing:border-box;">
 
-    <label style="font-size:13px;color:#888;font-weight:bold;">URL GAMBAR</label>
-    <input type="text" id="urlGambarBaru" placeholder="https://... (opsional, bisa dari Google Images)"
-        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0 14px;box-sizing:border-box;">
+    <label style="font-size:13px;color:#888;font-weight:bold;">GAMBAR PRODUK</label>
+    <input type="file" id="gambarProdukBaru" accept="image/*" onchange="previewGambar()"
+        style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;
+        margin:6px 0 10px;box-sizing:border-box;">
+    <img id="previewGambar" style="display:none;width:100%;max-height:200px;
+        object-fit:cover;border-radius:10px;margin-bottom:14px;">
 
     <button onclick="tambahProdukBaru()" style="width:100%;padding:14px;font-size:15px;">
         ➕ Tambah Produk
