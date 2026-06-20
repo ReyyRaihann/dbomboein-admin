@@ -1,29 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body class="login-body">
-
 <div class="login-box">
     <h1>Admin Dbomboein</h1>
-
     <div class="input-group">
-        <input type="text" id="adminUser" required>
-        <label>Username</label>
+        <input type="email" id="adminEmail" required>
+        <label>Email</label>
     </div>
-
     <div class="input-group">
         <input type="password" id="adminPass" required>
         <label>Password</label>
     </div>
-
     <button onclick="loginAdmin()">
         Login Admin
     </button>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
-
 </body>
+</html>
