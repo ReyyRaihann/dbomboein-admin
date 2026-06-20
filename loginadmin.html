@@ -1,29 +1,39 @@
+cat > /home/claude/loginadmin.html << 'ENDOFFILE'
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Login Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Dbomboein</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body class="login-body">
 
 <div class="login-box">
-    <h1>Admin Dbomboein</h1>
+    <h1>🔐 Admin Login</h1>
 
     <div class="input-group">
-        <input type="text" id="adminUser" required>
-        <label>Username</label>
+        <input type="email" id="adminEmail" placeholder="Email admin" required>
     </div>
 
     <div class="input-group">
-        <input type="password" id="adminPass" required>
-        <label>Password</label>
+        <input type="password" id="adminPass" placeholder="Password" required>
     </div>
 
-    <button onclick="loginAdmin()">
-        Login Admin
-    </button>
+    <div id="loginError" style="display:none;color:red;font-size:13px;
+        margin-bottom:10px;text-align:center;"></div>
+
+    <button onclick="loginAdmin()" id="btnLogin">Masuk</button>
+
+    <small style="text-align:center;display:block;margin-top:15px;color:#aaa;">
+        Hanya admin yang berwenang
+    </small>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
 
 </body>
+</html>
+ENDOFFILE
+echo "Done loginadmin"
