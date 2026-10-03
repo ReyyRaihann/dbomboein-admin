@@ -6,7 +6,9 @@
     <title>Admin - Dbomboein</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body style="display:none;">
+<body>
+
+<!-- Tidak ada cek localStorage lagi! Cek session dilakukan di script.js -->
 
 <header>
     <h3>Dashboard Admin</h3>
@@ -15,16 +17,6 @@
 
 <div id="loadingInfo" style="display:none;text-align:center;padding:12px;
     background:#fff3e0;color:#e65100;font-weight:bold;font-size:14px;"></div>
-
-<!-- UBAH AKUN -->
-<h2 style="margin:20px;">Ubah Password Admin</h2>
-<div class="stok-card" style="margin:20px;">
-    <input type="password" id="passBaru" placeholder="Password Baru (min. 6 karakter)">
-    <button onclick="ubahAkunAdmin()">💾 Simpan Password</button>
-    <p style="font-size:12px;color:#888;margin-top:6px;">
-        Untuk mengganti email admin, lakukan lewat Supabase Dashboard → Authentication → Users.
-    </p>
-</div>
 
 <!-- STATISTIK -->
 <div class="admin-stat">
@@ -71,7 +63,6 @@
         <option value="pak">Per Pak / Bundle</option>
     </select>
 
-    <!-- BERAT -->
     <div id="secBerat">
         <p style="font-size:13px;color:#888;font-weight:bold;margin-bottom:8px;">
             HARGA PER UKURAN (kosongkan jika tidak dijual)
@@ -104,7 +95,6 @@
         </div>
     </div>
 
-    <!-- SATUAN -->
     <div id="secSatuan" style="display:none;">
         <label style="font-size:13px;color:#888;font-weight:bold;">JENIS SATUAN</label>
         <input type="text" id="namaJenisSatuan" placeholder="dirigen / botol / kaleng / bungkus"
@@ -116,7 +106,6 @@
             margin:6px 0 14px;box-sizing:border-box;">
     </div>
 
-    <!-- PAK -->
     <div id="secPak" style="display:none;">
         <label style="font-size:13px;color:#888;font-weight:bold;">KETERANGAN PAK</label>
         <input type="text" id="keteranganPak" placeholder="contoh: isi 12 / isi 20"
