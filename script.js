@@ -370,7 +370,7 @@ async function checkout(){
     pesan += `%0ATotal: ${formatRp(total)}%0A`;
     pesan += `Nama: ${nama}%0AAlamat: ${alamat}%0ANo HP: ${nohp}%0AMetode: ${metode}`;
 
-    window.open(`https://wa.me/6285378445758?text=${pesan}`, "_blank");
+   window.location.href = `https://wa.me/6285378445758?text=${pesan}`;
 
     keranjang = [];
     simpanData();
